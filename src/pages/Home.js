@@ -5,12 +5,14 @@ import {
   StyleSheet,
   TextInput,
   Platform,
-  TouchableOpacity,
+  FlatList,
 } from 'react-native';
+import { Button } from '../components/Button';
+import { SkillCard } from '../components/SkillCard';
 
 export function Home() {
   const [newSkill, setNewSkill] = useState();
-  const [mySkills, setMySkills] = useState([]);
+  const [mySkills, setMySkills] = useState(['JS', 'TS', 'Next', 'Angular', 'Vue', 'React', 'Sequelize']);
 
   const handleNewAddSkil = () => {
     setMySkills(oldState => [...oldState, newSkill]);
@@ -27,25 +29,20 @@ export function Home() {
         onChangeText={setNewSkill}
         value={newSkill}
       />
-      <TouchableOpacity
-        style={styles.button}
-        activeOpacity={0.8}
-        onPress={handleNewAddSkil}
-      >
-        <Text style={styles.buttonText}>Add</Text>
-      </TouchableOpacity>
+
+      <Button />
 
       <Text style={[{ marginVertical: 30 }, styles.title]}>My Skills</Text>
 
-      {mySkills.map(skill => (
-        <TouchableOpacity
-          key={skill}
-          activeOpacity={0.8}
-          style={styles.buttonSkill}
-        >
-          <Text style={styles.textSkill}>{skill}</Text>
-        </TouchableOpacity>
-      ))}
+      <FlatList
+        data={mySkills}
+        renderItem={({ item }) => (
+          <SkillCard />
+        )}
+        keyExtractor={item => item}
+      >
+      </FlatList>
+
     </View>
   );
 }
@@ -69,29 +66,5 @@ const styles = StyleSheet.create({
     padding: Platform.OS === 'ios' ? 15 : 10,
     marginTop: 30,
     borderRadius: 8,
-  },
-  button: {
-    backgroundColor: '#a370f7',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 17,
-  },
-  buttonSkill: {
-    backgroundColor: '#1f1e25',
-    padding: 15,
-    borderRadius: 50,
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  textSkill: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
+  }
 });
