@@ -1,14 +1,14 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export const SkillCard = () => {
+export const SkillCard = ({ item }) => {
   return (
     <TouchableOpacity
-      // key={item}
+      key={item}
       activeOpacity={0.8}
       style={styles.buttonSkill}
     >
-      <Text style={styles.textSkill}>item</Text>
+      <Text style={styles.textSkill}>{item}</Text>
     </TouchableOpacity>
   );
 }

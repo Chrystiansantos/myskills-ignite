@@ -12,9 +12,9 @@ import { SkillCard } from '../components/SkillCard';
 
 export function Home() {
   const [newSkill, setNewSkill] = useState();
-  const [mySkills, setMySkills] = useState(['JS', 'TS', 'Next', 'Angular', 'Vue', 'React', 'Sequelize']);
+  const [mySkills, setMySkills] = useState([]);
 
-  const handleNewAddSkil = () => {
+  const handleNewAddSkill = () => {
     setMySkills(oldState => [...oldState, newSkill]);
     setNewSkill('');
   };
@@ -29,20 +29,16 @@ export function Home() {
         onChangeText={setNewSkill}
         value={newSkill}
       />
-
-      <Button />
-
+      <Button title="Add" onPress={handleNewAddSkill} />
       <Text style={[{ marginVertical: 30 }, styles.title]}>My Skills</Text>
-
       <FlatList
         data={mySkills}
         renderItem={({ item }) => (
-          <SkillCard />
+          <SkillCard item={item} />
         )}
         keyExtractor={item => item}
       >
       </FlatList>
-
     </View>
   );
 }
