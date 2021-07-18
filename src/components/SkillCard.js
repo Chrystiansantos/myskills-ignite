@@ -1,17 +1,13 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export const SkillCard = ({ item }) => {
   return (
-    <TouchableOpacity
-      key={item}
-      activeOpacity={0.8}
-      style={styles.buttonSkill}
-    >
+    <TouchableOpacity activeOpacity={0.8} style={styles.buttonSkill}>
       <Text style={styles.textSkill}>{item}</Text>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonSkill: {
@@ -26,4 +22,4 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
   },
-})
+});
