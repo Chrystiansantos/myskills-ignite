@@ -10,6 +10,7 @@
   "globals": {
     "__DEV__": "readonly"
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -24,8 +25,10 @@
   ],
   "rules": {
     "prettier/prettier": "error",
+    "import/extensions": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [
       1,
       {
@@ -35,6 +38,14 @@
       }
     ],
     "no-use-before-define": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "import/no-unresolved": "off"
+  },
+  "settings": {
+    "settings": {
+      "import/resolver": {
+        "typescript": {}
+      }
+    }
   }
 }

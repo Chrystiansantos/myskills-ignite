@@ -7,34 +7,46 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
+
 import { Button } from '../components/Button';
 import { SkillCard } from '../components/SkillCard';
 
+interface SkillData {
+  id: string;
+  name: string;
+}
+
 export function Home() {
-  const [newSkill, setNewSkill] = useState();
-  const [mySkills, setMySkills] = useState([]);
-  const [greeting, setGreetings] = useState('');
+  const [newSkill, setNewSkill] = useState<string>('');
+  const [mySkills, setMySkills] = useState<SkillData[]>([]);
+  const [greeting, setGreetings] = useState<string>('');
 
   const handleNewAddSkill = () => {
-    if (!!newSkill) {
-      setMySkills(oldState => [...oldState, newSkill]);
+    if (newSkill) {
+      const data: SkillData = {
+        id: String(new Date().getTime()),
+        name: newSkill,
+      };
+      setMySkills(oldState => [...oldState, data]);
       setNewSkill('');
     }
+  };
+  const handleRemoveSkill = (id: string) => {
+    setMySkills(oldState => oldState.filter(skill => skill.id !== id));
   };
 
   useEffect(() => {
     const currentHour = new Date().getHours();
     if (currentHour < 12) {
-      setGreetings('Good morning !')
+      setGreetings('Good morning !');
       return;
     }
     if (currentHour >= 12 && currentHour < 18) {
       setGreetings('Good afternoon !');
       return;
     }
-    setGreetings('Good night !')
-
-  }, [])
+    setGreetings('Good night !');
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -51,8 +63,13 @@ export function Home() {
       <Text style={[{ marginVertical: 30 }, styles.title]}>My Skills</Text>
       <FlatList
         data={mySkills}
-        keyExtractor={item => item}
-        renderItem={({ item }) => <SkillCard item={item} />}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <SkillCard
+            onPress={() => handleRemoveSkill(item.id)}
+            item={item.name}
+          />
+        )}
       />
     </View>
   );
@@ -71,7 +88,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   greetings: {
-    color: '#fff'
+    color: '#fff',
   },
   input: {
     backgroundColor: '#1f1e25',
